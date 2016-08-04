@@ -6,7 +6,7 @@ extern crate ndarray;
 extern crate rand;
 extern crate ndarray_rand;
 
-use ndarray::Array;
+use ndarray::{Array, Axis};
 use rand::distributions::*;
 use ndarray_rand::RandomExt;
 
@@ -52,4 +52,10 @@ fn main() {
     let a_max = a.iter().fold(0.0 / 0.0, |m, v| v.max(m));
     let a_min = a.iter().fold(0.0 / 0.0, |m, v| v.min(m));
     println!("12: max={:?}, min={:?}", a_max, a_min);
+
+    // 13. Create a random vector of size 30 and find the mean value
+    let r_dist = Range::new(0., 1.);
+    let a = Array::<f64, _>::random(30, r_dist);
+    let mean = a.scalar_sum() / a.len() as f64;
+    println!("13: mean={:?}", mean);
 }
