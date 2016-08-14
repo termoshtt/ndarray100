@@ -6,7 +6,7 @@ extern crate ndarray;
 extern crate rand;
 extern crate ndarray_rand;
 
-use ndarray::{Array, Axis};
+use ndarray::Array;
 use rand::distributions::*;
 use ndarray_rand::RandomExt;
 
@@ -58,4 +58,9 @@ fn main() {
     let a = Array::<f64, _>::random(30, r_dist);
     let mean = a.scalar_sum() / a.len() as f64;
     println!("13: mean={:?}", mean);
+
+    // 14. Create a 2d array with 1 on the border and 0 inside
+    let mut a = Array::<f64, _>::from_elem((5, 5), 1.0);
+    a.slice_mut(s![1..-1, 1..-1]).assign(&Array::zeros((3, 3)));
+    println!("14: a={:?}", &a);
 }
