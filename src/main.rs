@@ -2,6 +2,7 @@
 // 1. import ndarray package
 #[macro_use(s)]
 extern crate ndarray;
+extern crate ndarray100;
 
 extern crate rand;
 extern crate ndarray_rand;
@@ -9,6 +10,7 @@ extern crate ndarray_rand;
 use ndarray::Array;
 use rand::distributions::*;
 use ndarray_rand::RandomExt;
+use ndarray100::*;
 
 fn main() {
     // 3. Create a null vector of size 10
@@ -63,4 +65,9 @@ fn main() {
     let mut a = Array::<f64, _>::from_elem((5, 5), 1.0);
     a.slice_mut(s![1..-1, 1..-1]).assign(&Array::zeros((3, 3)));
     println!("14: a={:?}", &a);
+
+    // 16. Create a 5x5 matrix with values 1,2,3,4 just below the diagonal
+    let d = Array::range(1., 5., 1.);
+    let a = diag_k(&d, 1);
+    println!("15: a={:?}", &a.t());
 }
