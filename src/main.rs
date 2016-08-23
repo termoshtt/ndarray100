@@ -69,5 +69,11 @@ fn main() {
     // 16. Create a 5x5 matrix with values 1,2,3,4 just below the diagonal
     let d = Array::range(1., 5., 1.);
     let a = diag_k(&d, 1);
-    println!("15: a={:?}", &a.t());
+    println!("16: a={:?}", &a.t());
+
+    // 17.
+    let mut a = Array::<f64, _>::zeros((8, 8));
+    a.slice_mut(s![..; 2, ..; 2]).assign(&Array::from_elem((4, 4), 1.0));
+    a.slice_mut(s![1..; 2, 1..; 2]).assign(&Array::from_elem((4, 4), 1.0));
+    println!("17: a={:?}", &a);
 }
