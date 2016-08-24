@@ -51,8 +51,8 @@ fn main() {
     // See http://qiita.com/l1048576/items/343ca40a03c3b86b67cb (Japanese)
     let r_dist = Range::new(0., 1.);
     let a = Array::<f64, _>::random((10, 10), r_dist);
-    let a_max = a.iter().fold(0.0 / 0.0, |m, v| v.max(m));
-    let a_min = a.iter().fold(0.0 / 0.0, |m, v| v.min(m));
+    let a_max = a.fold(0.0 / 0.0, |m, v| v.max(m));
+    let a_min = a.fold(0.0 / 0.0, |m, v| v.min(m));
     println!("12: max={:?}, min={:?}", a_max, a_min);
 
     // 13. Create a random vector of size 30 and find the mean value
@@ -63,7 +63,7 @@ fn main() {
 
     // 14. Create a 2d array with 1 on the border and 0 inside
     let mut a = Array::<f64, _>::from_elem((5, 5), 1.0);
-    a.slice_mut(s![1..-1, 1..-1]).assign(&Array::zeros((3, 3)));
+    a.slice_mut(s![1..-1, 1..-1]).mapv_inplace(|_| 0.0);
     println!("14: a={:?}", &a);
 
     // 16. Create a 5x5 matrix with values 1,2,3,4 just below the diagonal
@@ -73,7 +73,7 @@ fn main() {
 
     // 17.
     let mut a = Array::<f64, _>::zeros((8, 8));
-    a.slice_mut(s![..; 2, ..; 2]).assign(&Array::from_elem((4, 4), 1.0));
-    a.slice_mut(s![1..; 2, 1..; 2]).assign(&Array::from_elem((4, 4), 1.0));
+    a.slice_mut(s![..; 2, ..; 2]).mapv_inplace(|_| 1.0);
+    a.slice_mut(s![1..; 2, 1..; 2]).mapv_inplace(|_| 1.0);
     println!("17: a={:?}", &a);
 }
